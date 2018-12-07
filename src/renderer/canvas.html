@@ -1,0 +1,72 @@
+'<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="can" width="800" height="600" style="background:#000"></canvas>
+  <button id="btn" >点击</button>
+  <script>
+    var canvas = document.getElementById('can')
+    var btn = document.getElementById('btn')
+    // btn.onclick = function () {
+    //   console.log(1)
+    // }
+    // btn.onclick = function () {
+    //   console.log(2)
+    // }
+    // btn.onclick = function () {
+    //   console.log(3)
+    // } 覆盖原则
+    // btn.addEventListener('mousedown', function () {
+    //   console.log(8888)
+    // }, false)
+    // btn.addEventListener('touchend', function () {
+    //   console.log(9999)
+    // }, false)
+    // btn.onmousedown = function (e) {
+    //   e.preventDefault()
+    //   console.log(3333)
+    // }
+    btn.ontouchend = function (e) {
+      // e.preventDefault()
+      console.log(5555)
+    }
+    btn.onclick = function (e) {
+      console.log(666)
+    }
+    var ctx = canvas.getContext('2d')
+    var penWeight = 3
+    var penColor = 'red'
+    canvas.onmousedown = function (e) {
+      console.log(77)
+      var startX = e.clientX - canvas.offsetLeft + document.body.scrollLeft
+      var startY = e.clientY - canvas.offsetTop + document.body.scrollTop
+      ctx.beginPath()
+      ctx.moveTo(startX, startY)
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.strokeStyle = penColor
+      ctx.lineWidth = penWeight
+      canvas.onmousemove = function (e) {
+        console.log(888)
+        var moveX = e.clientX - canvas.offsetLeft + document.body.scrollLeft
+        var moveY = e.clientY - canvas.offsetTop + document.body.scrollTop
+        ctx.lineTo(moveX, moveY)
+        ctx.stroke()
+      }
+      canvas.onmouseup = function () {
+        console.log(999)
+        ctx.closePath()
+        canvas.onmousemove = null
+        canvas.onmouseup = null
+        // canvas.onmousemove = null
+        // canvas.onmouseup = null
+      }
+    }
+  </script>
+</body>
+</html>
