@@ -21,7 +21,8 @@
             画笔颜色</h5>
           <ul>
             <li 
-              v-for="item in colors" 
+              v-for="item in colors"
+              :key="item"
               :class="{'active':config.lineColor === item}"
               :style="{ background: item }" 
               @click="setColor(item)"
@@ -33,6 +34,7 @@
           <h5>画笔大小</h5>
           <span 
             v-for="pen in brushs" 
+            :key="pen"
             :class="[pen.className,{'active': config.lineWidth === pen.lineWidth}]"
             @click="setBrush(pen.lineWidth)"
           ></span>
@@ -44,6 +46,7 @@
             v-for="control in controls" 
             :title="control.title" 
             :class="control.className" 
+            :key="control"
             @click="controlCanvas(control.action)"
           ></span>
         </div>
@@ -56,7 +59,7 @@
     </div>
     <!--存放图片-->
     <div id="img-box" v-show="imgUrl.length">
-      <div class="img-item" v-for="src in imgUrl">
+      <div class="img-item" v-for="src in imgUrl" :key="src">
         <img :src="src">
         <span class="fa fa-close" @click="removeImg(src)"></span>
       </div>
@@ -401,4 +404,3 @@
     }
   }
 </script>
-© 2018 GitHub, Inc.
